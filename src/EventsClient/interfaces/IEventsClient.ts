@@ -1,8 +1,8 @@
 import { IEmitOptions } from './IEmitOptions';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { MicroserviceOptions, CustomStrategy } from '@nestjs/microservices';
 
 export interface IEventsClient {
-  options: MicroserviceOptions & { transport: Transport };
+  options: Exclude<MicroserviceOptions, CustomStrategy>;
   emit(options: IEmitOptions): Promise<void>;
   close(): Promise<void>;
 }
