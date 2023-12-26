@@ -22,6 +22,7 @@ export class CreateClientService {
     await natsClient.connect();
 
     return {
+      options: natsOptions,
       emit: async options => {
         await lastValueFrom(natsClient.emit(options.topic, options.data));
       },
