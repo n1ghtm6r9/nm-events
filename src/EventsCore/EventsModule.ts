@@ -3,12 +3,12 @@ import { DynamicModule } from '@nestjs/common';
 import { IEventsCoreModuleOptions } from './interfaces';
 import { EventsClientModule } from '../EventsClient';
 
-export class ApiRouteCoreModule {
+export class EventsCoreModule {
   public static forRoot({ imports, eventsFactory, servicesKeys }: IEventsCoreModuleOptions): DynamicModule {
     return {
       global: true,
       imports: [...imports, EventsClientModule],
-      module: ApiRouteCoreModule,
+      module: EventsCoreModule,
       providers: [
         {
           provide: eventsKey,
