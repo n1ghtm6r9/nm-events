@@ -7,7 +7,7 @@ export class EventsCoreModule {
   public static forRoot({ imports, eventsFactory, servicesKeys }: IEventsCoreModuleOptions): DynamicModule {
     return {
       global: true,
-      imports: [...imports, EventsClientModule],
+      imports: [EventsClientModule, ...imports],
       module: EventsCoreModule,
       providers: [
         {
