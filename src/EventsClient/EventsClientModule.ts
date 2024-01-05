@@ -17,7 +17,7 @@ import { NatsTransportModule, natsEventsStrategyKey } from '../NatsEvents';
         if (!strategy) {
           throw new NotFoundError({
             entityName: 'EventsStrategy',
-            searchValue: config.transport.type,
+            searchValue: config.event.type,
           });
         }
 

@@ -1,6 +1,6 @@
 {
   "name": "@nmxjs/events",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,8 +28,10 @@
   "dependencies": {
     "@nestjs/common": "^10.2.10",
     "@nestjs/microservices": "^10.3.0",
-    "@nmxjs/config": "^1.0.7",
     "@nmxjs/errors": "^1.0.3",
     "rxjs": "^7.8.1"
+  },
+  "peerDependencies": {
+    "@nmxjs/config": "^1.0.8"
   }
 }
