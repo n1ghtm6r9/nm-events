@@ -1,5 +1,5 @@
 import { eventsKey } from './constants';
-import { DynamicModule } from '@nestjs/common';
+import type { DynamicModule } from '@nestjs/common';
 import { IEventsCoreModuleOptions } from './interfaces';
 import { EventsClientModule } from '../EventsClient';
 

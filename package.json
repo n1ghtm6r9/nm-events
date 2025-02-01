@@ -1,6 +1,6 @@
 {
   "name": "@nmxjs/events",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,17 +22,17 @@
   },
   "homepage": "https://github.com/n1ghtm6r9/nm-events#readme",
   "devDependencies": {
-    "@types/node": "^20.10.4",
+    "@types/node": "^22.13.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@nestjs/common": "^10.2.10",
-    "@nestjs/microservices": "^10.3.0",
     "@nmxjs/errors": "^1.0.3",
     "rxjs": "^7.8.1",
     "object-hash": "^3.0.0"
   },
   "peerDependencies": {
+    "@nestjs/common": "^11.0.7",
+    "@nestjs/microservices": "^11.0.7",
     "@nmxjs/config": "^1.0.8"
   }
 }

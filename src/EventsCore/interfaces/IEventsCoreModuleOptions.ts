@@ -1,4 +1,4 @@
-import { ModuleMetadata } from '@nestjs/common';
+import type { ModuleMetadata } from '@nestjs/common';
 
 export interface IEventsCoreModuleOptions extends Required<Pick<ModuleMetadata, 'imports'>> {
   servicesKeys: Array<string | symbol>;
