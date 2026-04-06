@@ -4,10 +4,11 @@ import { Inject, Global, Module, OnApplicationShutdown } from '@nestjs/common';
 import { eventsClientKey } from './constants';
 import { IEventsStrategy, IEventsClient } from './interfaces';
 import { NatsTransportModule, natsEventsStrategyKey } from '../NatsEvents';
+import { NatsJetStreamTransportModule, natsJetStreamEventsStrategyKey } from '../NatsJetStreamEvents';
 
 @Global()
 @Module({
-  imports: [NatsTransportModule],
+  imports: [NatsTransportModule, NatsJetStreamTransportModule],
   providers: [
     {
       provide: eventsClientKey,
@@ -23,7 +24,7 @@ import { NatsTransportModule, natsEventsStrategyKey } from '../NatsEvents';
 
         return await strategy.createClient();
       },
-      inject: [configKey, natsEventsStrategyKey],
+      inject: [configKey, natsEventsStrategyKey, natsJetStreamEventsStrategyKey],
     },
   ],
   exports: [eventsClientKey],

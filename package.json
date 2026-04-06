@@ -1,6 +1,6 @@
 {
   "name": "@nmxjs/events",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@nmxjs/errors": "^1.0.3",
+    "nats": "^2.28.2",
     "rxjs": "^7.8.1",
     "object-hash": "^3.0.0"
   },

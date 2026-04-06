@@ -11,17 +11,22 @@ declare module '@nestjs/common' {
 declare module '@nmxjs/config' {
   enum EventTypeEnum {
     NATS = 'nats',
+    NATS_JETSTREAM = 'nats_jetstream',
+  }
+  interface IEventConfig {
+    type: EventTypeEnum;
+    servers: Array<{
+      host?: string;
+      port?: number;
+    }>;
+    username?: string;
+    password?: string;
+    streamName?: string;
+    durableName?: string;
+    maxDeliver?: number;
   }
   interface IConfig {
-    event?: {
-      type: EventTypeEnum;
-      servers: Array<{
-        host?: string;
-        port?: number;
-      }>;
-      username?: string;
-      password?: string;
-    };
+    event?: IEventConfig;
   }
   const configKey: string;
 }
