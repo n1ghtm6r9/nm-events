@@ -30,7 +30,12 @@ export class NatsJetStreamServer extends Server implements CustomTransportStrate
         max_deliver: this.eventConfig.maxDeliver || 3,
       };
 
-      await this.jsm.consumers.add(streamName, consumerConfig);
+      try {
+        await this.jsm.consumers.add(streamName, consumerConfig);
+      } catch {
+        await this.jsm.consumers.update(streamName, consumerName, consumerConfig);
+      }
+
       const consumer = await this.js.consumers.get(streamName, consumerName);
       const messages = await consumer.consume();
 
@@ -38,7 +43,13 @@ export class NatsJetStreamServer extends Server implements CustomTransportStrate
         for await (const msg of messages) {
           try {
             const data = JSON.parse(this.sc.decode(msg.data));
-            await handler(data);
+
+            let currentHandler = handler;
+            while (currentHandler) {
+              await currentHandler(data);
+              currentHandler = currentHandler.next;
+            }
+
             msg.ack();
           } catch (err) {
             msg.nak();
