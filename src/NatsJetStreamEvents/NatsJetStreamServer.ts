@@ -40,21 +40,17 @@ export class NatsJetStreamServer extends Server implements CustomTransportStrate
       const messages = await consumer.consume();
 
       (async () => {
-        for await (const msg of messages) {
-          try {
-            const data = JSON.parse(this.sc.decode(msg.data));
-
-            let currentHandler = handler;
-            while (currentHandler) {
-              await currentHandler({ pattern, data }, msg);
-              currentHandler = currentHandler.next;
+        try {
+          for await (const msg of messages) {
+            try {
+              const data = JSON.parse(this.sc.decode(msg.data));
+              await handler(data);
+              msg.ack();
+            } catch {
+              msg.nak();
             }
-
-            msg.ack();
-          } catch (err) {
-            msg.nak();
           }
-        }
+        } catch {}
       })();
     }
 
