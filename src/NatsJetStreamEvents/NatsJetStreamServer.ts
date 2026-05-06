@@ -1,4 +1,4 @@
-import { CustomTransportStrategy, Server } from '@nestjs/microservices';
+import { CustomTransportStrategy, Server, BaseRpcContext } from '@nestjs/microservices';
 import { JetStreamClient, JetStreamManager, NatsConnection, StringCodec, AckPolicy, DeliverPolicy, ConsumerConfig } from 'nats';
 import type { IEventConfig } from '@nmxjs/config';
 
@@ -18,7 +18,7 @@ export class NatsJetStreamServer extends Server implements CustomTransportStrate
     const streamName = this.eventConfig.streamName || 'EVENTS';
     const durableName = this.eventConfig.durableName || 'default';
 
-    for (const [pattern, handler] of this.messageHandlers) {
+    for (const [pattern] of this.messageHandlers) {
       const subject = `${streamName}.${pattern}`;
       const consumerName = `${durableName}_${pattern}`;
 
@@ -44,7 +44,7 @@ export class NatsJetStreamServer extends Server implements CustomTransportStrate
           for await (const msg of messages) {
             try {
               const data = JSON.parse(this.sc.decode(msg.data));
-              await handler(data);
+              await this.handleEvent(pattern, { pattern, data }, new BaseRpcContext([pattern, msg]));
               msg.ack();
             } catch {
               msg.nak();
