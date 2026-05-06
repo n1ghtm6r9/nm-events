@@ -46,7 +46,7 @@ export class NatsJetStreamServer extends Server implements CustomTransportStrate
 
             let currentHandler = handler;
             while (currentHandler) {
-              await currentHandler(data);
+              await currentHandler({ pattern, data }, msg);
               currentHandler = currentHandler.next;
             }
 
